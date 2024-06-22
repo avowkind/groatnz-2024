@@ -6,6 +6,8 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   // export static pages
   output: 'export',
+  basePath: '',
+  assetPrefix: '',
 }
  
 module.exports = withMDX(nextConfig)
