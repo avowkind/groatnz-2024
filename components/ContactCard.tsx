@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 
 type ContactProps = {
   name: string;
@@ -15,7 +15,7 @@ const ContactCard: React.FC<ContactProps> = ({ name, email, phone, linkedin, git
     <div className="contactCard flex flex-col items-start space-x-4">
       <h1>{name}</h1>
       <div className="flex items-start space-x-4">
-        <Image src={image} width={96} height={96} alt={name} className="w-24 h-24 rounded" />
+        <img src={image} width={96} height={96} alt={name} className="w-24 h-24 rounded" />
         <div>
           <dl>
             <div>
@@ -38,7 +38,7 @@ const ContactCard: React.FC<ContactProps> = ({ name, email, phone, linkedin, git
             </div>
           </dl>
         </div>
-        <Image src="/groat.svg" width={96} height={96} alt="Groat" className="w-24 h-24 rounded" />
+        <img src="/groat.svg" width={96} height={96} alt="Groat" className="w-24 h-24 rounded" />
       </div>
     </div>
   );

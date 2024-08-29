@@ -1,14 +1,13 @@
 {
   "name": "groatnz-2024",
-  "version": "0.1.0",
+  "version": "2024.06.22",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build",
-    "deploy": "gh-pages -d out"
+    "deploy": "next build && touch out/.nojekyll && gh-pages -d out --dotfiles "
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
