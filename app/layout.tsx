@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     description: "Software Engineer with 40+ years of experience in full-stack development, AI/ML integration, and team leadership.",
     images: [
       {
-        url: "/andrew-watkins-thumb.jpg",
+        url: "/andrew-2025.jpg",
         width: 1200,
         height: 630,
         alt: "Andrew Watkins - Software Engineer",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Andrew Watkins - Software Engineer",
     description: "Software Engineer with 40+ years of experience in full-stack development, AI/ML integration, and team leadership.",
-    images: ["/andrew-watkins-thumb.jpg"],
+    images: ["/andrew-2025.jpg"],
     creator: "@avowkind",
   },
   alternates: {
@@ -96,7 +96,7 @@ const andrew = {
   phone: "+64 27 7031007",
   linkedin: "andrewwatkinsnz",
   github: "avowkind",
-  image: "/andrew-watkins-thumb.jpg",
+  image: "/andrew-2025.jpg",
 };
 
 export default function RootLayout({
@@ -114,6 +114,7 @@ export default function RootLayout({
           linkedin={andrew.linkedin}
           github={andrew.github}
           url={siteUrl}
+          imagePath={andrew.image}
         />
         <nav className="md:sticky top-0 z-50 nav-header" aria-label="Main navigation" role="navigation">
           <div className="max-w-5xl mx-auto px-4 md:px-8 nav-header-content">

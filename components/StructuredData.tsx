@@ -7,105 +7,93 @@ type PersonData = {
   linkedin: string;
   github: string;
   url: string;
+  imagePath?: string;
 };
 
-const StructuredData: React.FC<PersonData> = ({ name, email, phone, linkedin, github, url }) => {
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: name,
-    jobTitle: "Software Engineer",
-    url: url,
-    sameAs: [
-      `https://github.com/${github}`,
-      `https://www.linkedin.com/in/${linkedin}`,
-    ],
-    email: email,
-    telephone: phone,
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "NZ",
-      addressLocality: "Auckland",
-    },
-    knowsAbout: [
-      "Software Engineering",
-      "Full Stack Development",
-      "AI/ML",
-      "LLM Integration",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Python",
-      "AWS",
-      "Serverless Architecture",
-      "Team Leadership",
-      "Product Management",
-    ],
-  };
+const StructuredData: React.FC<PersonData> = ({ name, email, phone, linkedin, github, url, imagePath }) => {
+  const personId = `${url}#person`;
+  const websiteId = `${url}#website`;
+  const webPageId = `${url}#webpage`;
 
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Groat.NZ",
-    url: url,
-    author: {
-      "@type": "Person",
-      name: name,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${url}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
+  const sameAs = [
+    `https://github.com/${github}`,
+    `https://www.linkedin.com/in/${linkedin}`,
+  ];
 
-  const breadcrumbSchema = {
+  const knowsAbout = [
+    "Software Engineering",
+    "Full Stack Development",
+    "Systems Architecture",
+    "Serverless Architecture",
+    "AWS",
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "GraphQL",
+    "AI",
+    "Machine Learning",
+    "LLM integration",
+    "Prompt management",
+    "Team leadership",
+    "Product development",
+  ];
+
+  const graph = {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
+    "@graph": [
       {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: url,
+        "@type": "WebSite",
+        "@id": websiteId,
+        url,
+        name: "Groat.NZ",
+        inLanguage: "en-NZ",
+        publisher: { "@id": personId },
       },
       {
-        "@type": "ListItem",
-        position: 2,
-        name: "Resume",
-        item: `${url}/resume`,
+        "@type": "WebPage",
+        "@id": webPageId,
+        url,
+        name: "Andrew Watkins - Groat.NZ",
+        isPartOf: { "@id": websiteId },
+        about: { "@id": personId },
+        inLanguage: "en-NZ",
       },
       {
-        "@type": "ListItem",
-        position: 3,
-        name: "Technical Skills",
-        item: `${url}/tech-skills`,
+        "@type": "Person",
+        "@id": personId,
+        name,
+        url,
+        image: imagePath ? `${url}${imagePath}` : undefined,
+        jobTitle: "Senior Software Engineer",
+        email,
+        telephone: phone,
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "NZ",
+          addressLocality: "Auckland",
+        },
+        sameAs,
+        knowsAbout,
       },
       {
-        "@type": "ListItem",
-        position: 4,
-        name: "Management Skills",
-        item: `${url}/sfia-skills`,
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: url },
+          { "@type": "ListItem", position: 2, name: "Resume", item: `${url}/resume` },
+          { "@type": "ListItem", position: 3, name: "Technical Skills", item: `${url}/tech-skills` },
+          { "@type": "ListItem", position: 4, name: "Management Skills", item: `${url}/sfia-skills` },
+        ],
       },
-    ],
+    ].filter(Boolean),
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
       />
     </>
   );
